@@ -1,9 +1,11 @@
+import { AppRegistry } from 'react-native'
+import 'react-native-gesture-handler'
+
 /**
- * @format
+ * Config
  */
+import { APP_NAME } from './src/config'
+import App from './App'
 
-import {AppRegistry} from 'react-native';
-import App from './App';
-import {name as appName} from './app.json';
-
-AppRegistry.registerComponent(appName, () => App);
+// Start APP
+AppRegistry.registerComponent(APP_NAME, () => App)
