@@ -11,6 +11,7 @@
     "fix:linter": "eslint 'src/**/*.js' --fix"
   },
   "dependencies": {
+    "@react-native-firebase/app": "^6.3.4",
     "prettier": "^1.19.1",
     "prop-types": "^15.7.2",
     "react": "16.9.0",

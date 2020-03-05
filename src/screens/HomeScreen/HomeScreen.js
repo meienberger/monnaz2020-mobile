@@ -4,7 +4,7 @@ import { SafeAreaView, Text } from 'react-native'
 const HomeScreen = () => {
   return (
     <SafeAreaView>
-      <Text>Monnaz 200</Text>
+      <Text>Monnaz 2020</Text>
     </SafeAreaView>
   )
 }

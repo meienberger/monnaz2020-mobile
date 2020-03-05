@@ -33,6 +33,13 @@ HomeStack.navigationOptions = ({ navigation }) => {
   }
 }
 
+// const GalleryStack = createStackNavigator({
+//   GalleryScreen: {
+//     screen: HomeScreen,
+//   },
+//   ...screenStack,
+// })
+
 const TabNavigator = createBottomTabNavigator(
   {
     Home: {
