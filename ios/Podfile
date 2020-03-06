@@ -41,13 +41,3 @@ target 'monnaz2020' do
 
   use_native_modules!
 end
-
-target 'monnaz2020-tvOS' do
-  # Pods for monnaz2020-tvOS
-
-  target 'monnaz2020-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-end

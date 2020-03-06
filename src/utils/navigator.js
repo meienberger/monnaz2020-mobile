@@ -6,6 +6,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 // import PropTypes from 'prop-types'
 
 import { HomeScreen } from '../screens'
+import { ProgramScreen } from '../screens/ProgramScreen'
 
 const screenStack = {
   HomeScreen: {
@@ -33,6 +34,26 @@ HomeStack.navigationOptions = ({ navigation }) => {
   }
 }
 
+const ProgramStack = createStackNavigator({
+  ProgramScreen: {
+    screen: ProgramScreen,
+  },
+  ...screenStack,
+})
+
+// Hide tabbar if we are further on the stack
+ProgramStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true
+
+  if (navigation.state.index > 0) {
+    tabBarVisible = false
+  }
+
+  return {
+    tabBarVisible,
+  }
+}
+
 // const GalleryStack = createStackNavigator({
 //   GalleryScreen: {
 //     screen: HomeScreen,
@@ -46,6 +67,12 @@ const TabNavigator = createBottomTabNavigator(
       screen: HomeStack,
       navigationOptions: () => ({
         tabBarLabel: 'Accueil',
+      }),
+    },
+    Program: {
+      screen: ProgramStack,
+      navigationOptions: () => ({
+        tabBarLabel: 'Programme',
       }),
     },
   },
