@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Text, ScrollView, StyleSheet, View, Dimensions } from 'react-native'
 import firestore from '@react-native-firebase/firestore'
 import * as Animatable from 'react-native-animatable'
+import PropTypes from 'prop-types'
 import { MAIN_COLOR } from '../../config/config/config'
 import { NewsSlider } from '../../components'
 
@@ -10,7 +11,7 @@ const { height, width } = Dimensions.get('window')
 const logo = require('../../res/img/simple_square.png')
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: 'white' },
   headerBack: {
     position: 'absolute',
     height: height / 2,
@@ -63,16 +64,9 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     fontWeight: 'bold',
   },
-  title2: {
-    fontSize: 35,
-    fontFamily: 'Avenir',
-    marginLeft: 20,
-    fontWeight: 'bold',
-    marginTop: -40,
-  },
 })
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const [articles, setArticles] = useState([])
 
   useEffect(() => {
@@ -117,14 +111,18 @@ const HomeScreen = () => {
         </View>
         <Animatable.View delay={500} animation="fadeIn" style={styles.content}>
           <Text style={styles.title}>Actualités</Text>
-          <NewsSlider articles={articles} />
+          <NewsSlider navigation={navigation} articles={articles} />
         </Animatable.View>
-        <View style={styles.content}>
+        {/* <View style={styles.content}>
           <Text style={styles.title2}>En images</Text>
-        </View>
+        </View> */}
       </ScrollView>
     </View>
   )
+}
+
+HomeScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
 }
 
 HomeScreen.navigationOptions = {

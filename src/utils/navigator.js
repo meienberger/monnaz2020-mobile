@@ -4,18 +4,23 @@ import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 // import PropTypes from 'prop-types'
-
-import { HomeScreen } from '../screens'
+import { HomeScreen, ArticleDetailsScreen } from '../screens'
 import { ProgramScreen } from '../screens/ProgramScreen'
 
 const screenStack = {
   HomeScreen: {
     screen: HomeScreen,
   },
+  ArticleDetailsScreen: {
+    screen: ArticleDetailsScreen,
+    navigationOptions: {
+      headerBackTitle: null,
+    },
+  },
 }
 
 const HomeStack = createStackNavigator({
-  HomeScreen: {
+  Home: {
     screen: HomeScreen,
   },
   ...screenStack,
@@ -35,9 +40,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
 }
 
 const ProgramStack = createStackNavigator({
-  ProgramScreen: {
-    screen: ProgramScreen,
-  },
+  Program: { screen: ProgramScreen },
   ...screenStack,
 })
 
@@ -53,13 +56,6 @@ ProgramStack.navigationOptions = ({ navigation }) => {
     tabBarVisible,
   }
 }
-
-// const GalleryStack = createStackNavigator({
-//   GalleryScreen: {
-//     screen: HomeScreen,
-//   },
-//   ...screenStack,
-// })
 
 const TabNavigator = createBottomTabNavigator(
   {

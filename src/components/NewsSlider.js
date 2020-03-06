@@ -1,6 +1,13 @@
 import React from 'react'
 import Carousel from 'react-native-snap-carousel'
-import { Text, Dimensions, View, Image, StyleSheet } from 'react-native'
+import {
+  Text,
+  Dimensions,
+  View,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 
@@ -42,22 +49,30 @@ const styles = StyleSheet.create({
   },
 })
 
-const NewsSlider = ({ articles }) => {
+const NewsSlider = ({ articles, navigation }) => {
   const renderItem = (item, index) => {
     return (
-      <View key={index} style={styles.card}>
-        <Image style={styles.articleImage} source={{ uri: item.image }} />
-        <View style={styles.cardContent}>
-          <Text style={styles.cardTitle}>{item.title}</Text>
-          <Text style={styles.cardDesc}>
-            {item.text.substring(0, 100)}
-            {item.text.length > 100 ? '...' : ''}
-          </Text>
-          <Text style={styles.articleDate}>
-            {moment(item.date.seconds * 1000).format('dddd DD MMMM YYYY')}
-          </Text>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('ArticleDetailsScreen', {
+            article: item,
+          })
+        }
+      >
+        <View key={index} style={styles.card}>
+          <Image style={styles.articleImage} source={{ uri: item.image }} />
+          <View style={styles.cardContent}>
+            <Text style={styles.cardTitle}>{item.title}</Text>
+            <Text style={styles.cardDesc}>
+              {item.text.substring(0, 100)}
+              {item.text.length > 100 ? '...' : ''}
+            </Text>
+            <Text style={styles.articleDate}>
+              {moment(item.date.seconds * 1000).format('dddd DD MMMM YYYY')}
+            </Text>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 
@@ -75,6 +90,7 @@ const NewsSlider = ({ articles }) => {
 
 NewsSlider.propTypes = {
   articles: PropTypes.array.isRequired,
+  navigation: PropTypes.object.isRequired,
 }
 
 export default NewsSlider
