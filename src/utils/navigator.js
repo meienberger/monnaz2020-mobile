@@ -1,11 +1,18 @@
 import React from 'react'
-import { Image } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 // import PropTypes from 'prop-types'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { HomeScreen, ArticleDetailsScreen, AlbumsScreen } from '../screens'
 import { ProgramScreen } from '../screens/ProgramScreen'
+import { MAIN_COLOR } from '../config/config/config'
+
+const styles = StyleSheet.create({
+  tabIcon: { fontSize: 25, marginBottom: -10, color: 'gray' },
+  tabIconFocused: { color: MAIN_COLOR },
+})
 
 const screenStack = {
   ArticleDetailsScreen: {
@@ -28,55 +35,15 @@ const HomeStack = createStackNavigator(
   },
 )
 
-// Hide tabbar if we are further on the stack
-HomeStack.navigationOptions = ({ navigation }) => {
-  let tabBarVisible = true
-
-  if (navigation.state.index > 0) {
-    tabBarVisible = false
-  }
-
-  return {
-    tabBarVisible,
-    headerBackTitle: ' ',
-  }
-}
-
 const ProgramStack = createStackNavigator({
   Program: { screen: ProgramScreen },
   ...screenStack,
 })
 
-// Hide tabbar if we are further on the stack
-ProgramStack.navigationOptions = ({ navigation }) => {
-  let tabBarVisible = true
-
-  if (navigation.state.index > 0) {
-    tabBarVisible = false
-  }
-
-  return {
-    tabBarVisible,
-  }
-}
-
 const AlbumStack = createStackNavigator({
   Photos: { screen: AlbumsScreen },
   ...screenStack,
 })
-
-// Hide tabbar if we are further on the stack
-AlbumStack.navigationOptions = ({ navigation }) => {
-  let tabBarVisible = true
-
-  if (navigation.state.index > 0) {
-    tabBarVisible = false
-  }
-
-  return {
-    tabBarVisible,
-  }
-}
 
 const TabNavigator = createBottomTabNavigator(
   {
@@ -105,25 +72,26 @@ const TabNavigator = createBottomTabNavigator(
       tabBarIcon: ({ focused, tintColor }) => {
         const { routeName } = navigation.state
 
-        const src = routeName
+        let icon = 'md-home'
+
+        if (routeName === 'Program') {
+          icon = 'ios-calendar'
+        }
+
+        if (routeName === 'Albums') {
+          icon = 'md-camera'
+        }
 
         return (
-          <Image
-            source={src}
-            color={tintColor}
-            // eslint-disable-next-line react-native/no-inline-styles
-            style={{
-              width: 20,
-              height: 20,
-              marginTop: 5,
-              resizeMode: 'contain',
-            }}
+          <Icon
+            name={icon}
+            style={[styles.tabIcon, focused ? styles.tabIconFocused : null]}
           />
         )
       },
     }),
     tabBarOptions: {
-      activeTintColor: 'black',
+      activeTintColor: MAIN_COLOR,
       inactiveTintColor: 'gray',
       labelStyle: { fontSize: 10 },
     },
