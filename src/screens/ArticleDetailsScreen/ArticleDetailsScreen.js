@@ -50,7 +50,7 @@ ArticleDetailsScreen.navigationOptions = {
   },
   headerTintColor: '#fff',
   drawerLabel: '',
-  headerBackTitle: '',
+  headerBackTitle: ' ',
 }
 
 ArticleDetailsScreen.propTypes = {

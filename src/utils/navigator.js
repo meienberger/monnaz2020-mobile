@@ -4,27 +4,29 @@ import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 // import PropTypes from 'prop-types'
-import { HomeScreen, ArticleDetailsScreen } from '../screens'
+import { HomeScreen, ArticleDetailsScreen, AlbumsScreen } from '../screens'
 import { ProgramScreen } from '../screens/ProgramScreen'
 
 const screenStack = {
-  HomeScreen: {
-    screen: HomeScreen,
-  },
   ArticleDetailsScreen: {
     screen: ArticleDetailsScreen,
-    navigationOptions: {
-      headerBackTitle: null,
-    },
   },
 }
 
-const HomeStack = createStackNavigator({
-  Home: {
-    screen: HomeScreen,
+const HomeStack = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: {
+        headerBackTitle: 'Home',
+      },
+    },
+    ...screenStack,
   },
-  ...screenStack,
-})
+  {
+    defaultNavigationOptions: { headerBackTitle: ' ' },
+  },
+)
 
 // Hide tabbar if we are further on the stack
 HomeStack.navigationOptions = ({ navigation }) => {
@@ -36,6 +38,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
 
   return {
     tabBarVisible,
+    headerBackTitle: ' ',
   }
 }
 
@@ -46,6 +49,24 @@ const ProgramStack = createStackNavigator({
 
 // Hide tabbar if we are further on the stack
 ProgramStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true
+
+  if (navigation.state.index > 0) {
+    tabBarVisible = false
+  }
+
+  return {
+    tabBarVisible,
+  }
+}
+
+const AlbumStack = createStackNavigator({
+  Photos: { screen: AlbumsScreen },
+  ...screenStack,
+})
+
+// Hide tabbar if we are further on the stack
+AlbumStack.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true
 
   if (navigation.state.index > 0) {
@@ -69,6 +90,12 @@ const TabNavigator = createBottomTabNavigator(
       screen: ProgramStack,
       navigationOptions: () => ({
         tabBarLabel: 'Programme',
+      }),
+    },
+    Albums: {
+      screen: AlbumStack,
+      navigationOptions: () => ({
+        tabBarLabel: 'Photos',
       }),
     },
   },

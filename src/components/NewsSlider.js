@@ -4,12 +4,12 @@ import {
   Text,
   Dimensions,
   View,
-  Image,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native'
 import moment from 'moment'
 import PropTypes from 'prop-types'
+import FastImage from 'react-native-fast-image'
 
 const { width } = Dimensions.get('window')
 
@@ -60,7 +60,7 @@ const NewsSlider = ({ articles, navigation }) => {
         }
       >
         <View key={index} style={styles.card}>
-          <Image style={styles.articleImage} source={{ uri: item.image }} />
+          <FastImage style={styles.articleImage} source={{ uri: item.image }} />
           <View style={styles.cardContent}>
             <Text style={styles.cardTitle}>{item.title}</Text>
             <Text style={styles.cardDesc}>

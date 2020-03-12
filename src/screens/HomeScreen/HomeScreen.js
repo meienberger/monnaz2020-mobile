@@ -5,6 +5,8 @@ import * as Animatable from 'react-native-animatable'
 import PropTypes from 'prop-types'
 import { MAIN_COLOR } from '../../config/config/config'
 import { NewsSlider } from '../../components'
+import SponsorsSlider from '../../components/SponsorsSlider'
+import GalleryPreview from '../../components/GalleryPreview'
 
 const { height, width } = Dimensions.get('window')
 
@@ -58,21 +60,37 @@ const styles = StyleSheet.create({
     zIndex: -1,
     paddingTop: 100,
   },
+  contentNext: {
+    backgroundColor: 'white',
+    zIndex: -1,
+    paddingTop: 80,
+  },
   title: {
     fontSize: 35,
     fontFamily: 'Avenir',
     marginLeft: 20,
     fontWeight: 'bold',
+    color: '#333',
+  },
+  subtitle: {
+    fontFamily: 'Avenir',
+    marginLeft: 22,
+    color: '#333',
+    fontWeight: '200',
+    paddingRight: 20,
+    textAlign: 'justify',
   },
 })
 
 const HomeScreen = ({ navigation }) => {
   const [articles, setArticles] = useState([])
+  const [sponsors, setSponsors] = useState([])
 
   useEffect(() => {
-    const unsubscribe = firestore()
+    firestore()
       .collection('news')
-      .onSnapshot(querySnapshot => {
+      .get()
+      .then(querySnapshot => {
         // console.log(querySnapshot.docs)
         const myArticles = querySnapshot.docs.map(documentSnapshot => {
           return {
@@ -83,8 +101,18 @@ const HomeScreen = ({ navigation }) => {
 
         setArticles(myArticles)
       })
+  }, [])
 
-    return () => unsubscribe()
+  useEffect(() => {
+    firestore()
+      .collection('sponsors')
+      .doc('diamond')
+      .get()
+      .then(data => {
+        if (data.exists) {
+          setSponsors(data.data().entries)
+        }
+      })
   }, [])
 
   return (
@@ -113,6 +141,39 @@ const HomeScreen = ({ navigation }) => {
           <Text style={styles.title}>Actualités</Text>
           <NewsSlider navigation={navigation} articles={articles} />
         </Animatable.View>
+        <Animatable.View
+          delay={600}
+          animation="fadeIn"
+          style={styles.contentNext}
+        >
+          <Text style={styles.title}>Nos Sponsors</Text>
+          <Text style={styles.subtitle}>
+            Nous remercions chaleureusement tous nos sponsors qui nous
+            soutiennent, que ce soit par des moyens matériels ou financiers !
+          </Text>
+          <SponsorsSlider sponsors={sponsors} />
+        </Animatable.View>
+        <Animatable.View
+          delay={700}
+          animation="fadeIn"
+          style={styles.contentNext}
+        >
+          <Text style={styles.title}>Le giron en images</Text>
+          <Text style={styles.subtitle}>
+            Nous souhaitons remercier Pierre-Yves Gilléron pour son manifique
+            travail de photographe sur la place de fête !
+          </Text>
+          <GalleryPreview
+            images={[
+              'https://live.staticflickr.com/65535/49254526837_43125f22d2_k.jpg',
+              'https://live.staticflickr.com/65535/49254337621_d0f84708a1_k.jpg',
+              'https://live.staticflickr.com/65535/49254526837_43125f22d2_k.jpg',
+              'https://live.staticflickr.com/65535/49254526837_43125f22d2_k.jpg',
+              'https://live.staticflickr.com/65535/49254526837_43125f22d2_k.jpg',
+              'https://live.staticflickr.com/65535/49254526837_43125f22d2_k.jpg',
+            ]}
+          />
+        </Animatable.View>
         {/* <View style={styles.content}>
           <Text style={styles.title2}>En images</Text>
         </View> */}
@@ -127,6 +188,7 @@ HomeScreen.propTypes = {
 
 HomeScreen.navigationOptions = {
   header: null,
+  backTitle: 'Home',
 }
 
 export default HomeScreen
