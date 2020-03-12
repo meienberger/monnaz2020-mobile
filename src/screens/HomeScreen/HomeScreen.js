@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 import { MAIN_COLOR } from '../../config/config/config'
 import { NewsSlider } from '../../components'
 import SponsorsSlider from '../../components/SponsorsSlider'
-import GalleryPreview from '../../components/GalleryPreview'
 
 const { height, width } = Dimensions.get('window')
 
@@ -85,6 +84,7 @@ const styles = StyleSheet.create({
 const HomeScreen = ({ navigation }) => {
   const [articles, setArticles] = useState([])
   const [sponsors, setSponsors] = useState([])
+  // const [images, setImages] = useState([])
 
   useEffect(() => {
     firestore()
@@ -113,6 +113,18 @@ const HomeScreen = ({ navigation }) => {
           setSponsors(data.data().entries)
         }
       })
+  }, [])
+
+  useEffect(() => {
+    // firestore()
+    //   .collection('albums')
+    //   .doc('preview')
+    //   .get()
+    //   .then(data => {
+    //     if (data.exists) {
+    //       setImages(data.data().images)
+    //     }
+    //   })
   }, [])
 
   return (
@@ -153,7 +165,7 @@ const HomeScreen = ({ navigation }) => {
           </Text>
           <SponsorsSlider sponsors={sponsors} />
         </Animatable.View>
-        <Animatable.View
+        {/* <Animatable.View
           delay={700}
           animation="fadeIn"
           style={styles.contentNext}
@@ -163,17 +175,8 @@ const HomeScreen = ({ navigation }) => {
             Nous souhaitons remercier Pierre-Yves Gilléron pour son manifique
             travail de photographe sur la place de fête !
           </Text>
-          <GalleryPreview
-            images={[
-              'https://live.staticflickr.com/65535/49254526837_43125f22d2_k.jpg',
-              'https://live.staticflickr.com/65535/49254337621_d0f84708a1_k.jpg',
-              'https://live.staticflickr.com/65535/49254526837_43125f22d2_k.jpg',
-              'https://live.staticflickr.com/65535/49254526837_43125f22d2_k.jpg',
-              'https://live.staticflickr.com/65535/49254526837_43125f22d2_k.jpg',
-              'https://live.staticflickr.com/65535/49254526837_43125f22d2_k.jpg',
-            ]}
-          />
-        </Animatable.View>
+          <GalleryPreview images={images} />
+        </Animatable.View> */}
         {/* <View style={styles.content}>
           <Text style={styles.title2}>En images</Text>
         </View> */}
