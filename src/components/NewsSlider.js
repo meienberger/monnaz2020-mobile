@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: '#fff',
     marginBottom: 10,
+    elevation: 5,
+    marginHorizontal: 5,
   },
   cardContent: {
     padding: 10,

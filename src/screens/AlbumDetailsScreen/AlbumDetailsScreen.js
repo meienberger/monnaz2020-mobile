@@ -19,13 +19,14 @@ const styles = StyleSheet.create({
     marginTop: -10,
     color: '#666',
   },
+  flex: { flex: 1 },
 })
 
 const AlbumDetailsScreen = ({ navigation }) => {
   const album = navigation.getParam('album')
 
   return (
-    <View>
+    <View style={styles.flex}>
       <Text style={styles.title}>{album.title}</Text>
       <Text style={styles.subtitle}>Cliquez sur les images pour agrandir</Text>
       <GalleryPreview images={album.images} />

@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Text, ScrollView, StyleSheet, View, Dimensions } from 'react-native'
+import {
+  Text,
+  ScrollView,
+  StyleSheet,
+  View,
+  Dimensions,
+  StatusBar,
+} from 'react-native'
 import firestore from '@react-native-firebase/firestore'
 import * as Animatable from 'react-native-animatable'
 import PropTypes from 'prop-types'
@@ -129,6 +136,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
       <Animatable.View
         delay={1500}
         animation="bounceIn"

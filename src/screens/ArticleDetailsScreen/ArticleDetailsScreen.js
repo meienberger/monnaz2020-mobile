@@ -1,8 +1,9 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, Linking } from 'react-native'
 import PropTypes from 'prop-types'
 import FastImage from 'react-native-fast-image'
 import { ScrollView } from 'react-native-gesture-handler'
+import Hyperlink from 'react-native-hyperlink'
 import { MAIN_COLOR } from '../../config/config/config'
 
 const styles = StyleSheet.create({
@@ -22,6 +23,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     color: 'gray',
   },
+  linkStyle: { color: MAIN_COLOR, fontWeight: 'bold' },
 })
 
 const ArticleDetailsScreen = ({ navigation }) => {
@@ -36,7 +38,12 @@ const ArticleDetailsScreen = ({ navigation }) => {
           source={{ uri: article.image }}
         />
         <Text style={styles.title}>{article.title}</Text>
-        <Text style={styles.text}>{article.text}</Text>
+        <Hyperlink
+          linkStyle={styles.linkStyle}
+          onPress={link => Linking.openURL(link)}
+        >
+          <Text style={styles.text}>{article.text}</Text>
+        </Hyperlink>
       </ScrollView>
     </View>
   )
