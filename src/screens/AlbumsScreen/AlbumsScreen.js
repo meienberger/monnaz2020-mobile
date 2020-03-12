@@ -8,6 +8,7 @@ import {
   ImageBackground,
 } from 'react-native'
 import firestore from '@react-native-firebase/firestore'
+import PropTypes from 'prop-types'
 import { MAIN_COLOR } from '../../config/config/config'
 
 const styles = StyleSheet.create({
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
   imageStyle: { borderRadius: 10 },
 })
 
-const AlbumsScreen = () => {
+const AlbumsScreen = ({ navigation }) => {
   const [albums, setAlbums] = useState([])
 
   useEffect(() => {
@@ -68,7 +69,12 @@ const AlbumsScreen = () => {
   const renderItem = item => {
     if (item.title) {
       return (
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('AlbumDetailsScreen', { album: item })
+          }
+          style={styles.card}
+        >
           <ImageBackground
             imageStyle={styles.imageStyle}
             style={styles.background}
@@ -96,6 +102,10 @@ AlbumsScreen.navigationOptions = {
   },
   headerTintColor: '#fff',
   drawerLabel: '',
+}
+
+AlbumsScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
 }
 
 export default AlbumsScreen

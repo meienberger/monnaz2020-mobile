@@ -130,7 +130,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Animatable.View
-        delay={700}
+        delay={1500}
         animation="bounceIn"
         style={styles.headerBack}
       />
@@ -191,7 +191,6 @@ HomeScreen.propTypes = {
 
 HomeScreen.navigationOptions = {
   header: null,
-  backTitle: 'Home',
 }
 
 export default HomeScreen

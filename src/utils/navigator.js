@@ -5,7 +5,12 @@ import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 // import PropTypes from 'prop-types'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { HomeScreen, ArticleDetailsScreen, AlbumsScreen } from '../screens'
+import {
+  HomeScreen,
+  ArticleDetailsScreen,
+  AlbumsScreen,
+  AlbumDetailsScreen,
+} from '../screens'
 import { ProgramScreen } from '../screens/ProgramScreen'
 import { MAIN_COLOR } from '../config/config/config'
 
@@ -17,6 +22,9 @@ const styles = StyleSheet.create({
 const screenStack = {
   ArticleDetailsScreen: {
     screen: ArticleDetailsScreen,
+  },
+  AlbumDetailsScreen: {
+    screen: AlbumDetailsScreen,
   },
 }
 
@@ -35,15 +43,25 @@ const HomeStack = createStackNavigator(
   },
 )
 
-const ProgramStack = createStackNavigator({
-  Program: { screen: ProgramScreen },
-  ...screenStack,
-})
+const ProgramStack = createStackNavigator(
+  {
+    Program: { screen: ProgramScreen },
+    ...screenStack,
+  },
+  {
+    defaultNavigationOptions: { headerBackTitle: ' ' },
+  },
+)
 
-const AlbumStack = createStackNavigator({
-  Photos: { screen: AlbumsScreen },
-  ...screenStack,
-})
+const AlbumStack = createStackNavigator(
+  {
+    Photos: { screen: AlbumsScreen },
+    ...screenStack,
+  },
+  {
+    defaultNavigationOptions: { headerBackTitle: ' ' },
+  },
+)
 
 const TabNavigator = createBottomTabNavigator(
   {

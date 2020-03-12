@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-zoom-lightbox/src/SingleImage/SingleImage.js b/node_modules/react-native-zoom-lightbox/src/SingleImage/SingleImage.js
+index f27981d..a217e34 100644
+--- a/node_modules/react-native-zoom-lightbox/src/SingleImage/SingleImage.js
++++ b/node_modules/react-native-zoom-lightbox/src/SingleImage/SingleImage.js
+@@ -208,7 +208,7 @@ export default class SingleImage extends PureComponent {
+           textAlign: 'right',
+           padding: 10,
+           margin: 30,
+-        }}>Close</Text>
++        }}>Fermer</Text>
+       </View>
+     </TouchableWithoutFeedback>
+   )
